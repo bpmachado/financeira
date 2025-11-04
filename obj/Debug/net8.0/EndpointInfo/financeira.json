@@ -184,6 +184,56 @@
           }
         }
       }
+    },
+    "/api/v1/contratos/{id}/pagamentos": {
+      "post": {
+        "tags": [
+          "Pagamentos"
+        ],
+        "summary": "Salvar",
+        "description": "Cadastrar novo pagamento para um contrato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagamentoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagamentoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagamentoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cadastro com sucesso."
+          },
+          "422": {
+            "description": "Erro de validação."
+          },
+          "409": {
+            "description": "Pagamento já cadastrado."
+          }
+        }
+      }
     }
   },
   "components": {
@@ -247,6 +297,33 @@
           }
         },
         "additionalProperties": false
+      },
+      "PagamentoDTO": {
+        "required": [
+          "dataPagamento",
+          "valorPago"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID do pagamento",
+            "format": "uuid"
+          },
+          "dataPagamento": {
+            "type": "string",
+            "description": "Data do pagamento",
+            "format": "date"
+          },
+          "valorPago": {
+            "minimum": 0,01,
+            "type": "number",
+            "description": "Valor pago",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Pagamento"
       },
       "TipoVeiculo": {
         "enum": [

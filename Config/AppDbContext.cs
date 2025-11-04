@@ -27,6 +27,18 @@ namespace Financeira.Data
                 .HasConversion(
                     v => v.ToString().ToUpper(),
                     v => (CondicaoVeiculo)Enum.Parse(typeof(CondicaoVeiculo), v, true));
+
+
+            modelBuilder.Entity<Pagamento>()
+                .Property(p => p.StatusPagamento)
+                .HasConversion<string>() 
+                .HasMaxLength(20);
+
+            modelBuilder.Entity<Pagamento>()
+                .HasOne(p => p.Contrato)
+                .WithMany(c => c.Pagamentos)
+                .HasForeignKey(p => p.ContratoId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

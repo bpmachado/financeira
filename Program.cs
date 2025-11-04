@@ -1,5 +1,6 @@
 ﻿using financeira.Controller.Common;
 using financeira.Controller.Mappers;
+using financeira.Repository;
 using financeira.Service;
 using Financeira.Data;
 using Financeira.Repository;
@@ -28,6 +29,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IContratoService, ContratoService>();
 builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
 builder.Services.AddScoped<IContratoMapper, ContratoMapper>();
+builder.Services.AddScoped<IPagamentoService, PagamentoService>();
+builder.Services.AddScoped<IPagamentoMapper, PagamentoMapper>();
+builder.Services.AddScoped<IPagamentoRepository, PagamentoRepository>();
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<GlobalExceptionFilter>();

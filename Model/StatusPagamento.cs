@@ -2,8 +2,8 @@
 {
     public enum StatusPagamento
     {
-        EmDia,
-        Atrasado,
-        Antecipado
+        EM_DIA,
+        ATRASADO,
+        ANTECIPADO
     }
 }

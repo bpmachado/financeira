@@ -43,6 +43,74 @@
             "description": "Contrato já cadastrado."
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Obter contrato por CPF ou CNPJ",
+        "description": "Retorna os dados do contrato por CPF ou CNPJ",
+        "parameters": [
+          {
+            "name": "cpfCnpj",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contrato encontrado com sucesso.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContratoDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContratoDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContratoDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contrato não encontrado."
+          }
+        }
       }
     },
     "/api/v1/contratos/{id}": {

@@ -8,13 +8,14 @@ namespace Financeira.Util
     {
         private static readonly CpfCnpjValidator _validator = new CpfCnpjValidator();
 
-        public static void ValidarCpfCnpj(string cpfCnpj, ILogger logger = null)
+        public static bool ValidarCpfCnpj(string cpfCnpj, ILogger? logger = null)
         {
             if (!_validator.IsValidCpfCnpj(cpfCnpj))
             {
                 logger?.LogWarning("CpfCnpj inválido");
                 throw new Exception("CPF ou CNPJ inválido");
             }
+            return true;
         }
     }
 }

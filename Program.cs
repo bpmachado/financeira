@@ -9,16 +9,18 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // 🔌 Configura o DbContext com PostgreSQL e pooling
-builder.Services.AddDbContextPool<AppDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseNpgsql(connectionString);
-    options.EnableSensitiveDataLogging(); // mostra os valores dos parâmetros
-    options.LogTo(Console.WriteLine, LogLevel.Information); // log no console
+
     options.UseNpgsql(connectionString, npgsqlOptions =>
     {
         npgsqlOptions.CommandTimeout(100);
+        npgsqlOptions.EnableRetryOnFailure(); // reconexão automática
     });
+
+    options.EnableSensitiveDataLogging();
+    options.LogTo(Console.WriteLine, LogLevel.Information);
 });
 
 // 🧩 Registro de serviços e repositórios

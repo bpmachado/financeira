@@ -8,9 +8,11 @@ namespace financeira.Controllers
     using financeira.Controller.Mappers;
     using financeira.Service;
     using financeira.Util;
+    using global::Financeira.Data;
     using global::Financeira.DTO;
     using global::Financeira.Util;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Swashbuckle.AspNetCore.Annotations;
 
     namespace Financeira.Api.Controllers.v1
@@ -37,7 +39,7 @@ namespace financeira.Controllers
             [SwaggerResponse(201, "Cadastro com sucesso.")]
             [SwaggerResponse(422, "Erro de validação.")]
             [SwaggerResponse(409, "Contrato já cadastrado.")]
-            public IActionResult CriarContrato([FromBody] ContratoDTO dto)
+            public async Task<IActionResult> CriarContrato([FromBody] ContratoDTO dto)
             {
                 _logger.LogInformation("Cadastrando um novo contrato para o cliente com CPF ou CNPJ: {CpfCnpj}", dto.ClienteCpfCnpj);
 
@@ -51,7 +53,7 @@ namespace financeira.Controllers
                 }
 
                 var contrato = _contratoMapper.ToEntity(dto);
-                _contratoService.CriarContratoAsync(contrato);
+                await _contratoService.CriarContratoAsync(contrato);
 
                 var location = UriHelper.GerarHeaderLocation(Request, contrato.Id);
                 return Created(location, null);
@@ -77,6 +79,28 @@ namespace financeira.Controllers
                 return Ok(dto);
             }
 
+            [HttpGet]
+            [SwaggerOperation(Summary = "Obter contrato por CPF ou CNPJ", Description = "Retorna os dados do contrato por CPF ou CNPJ")]
+            [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(IEnumerable<ContratoDTO>))]
+            [SwaggerResponse(404, "Contrato não encontrado.")]
+            public async Task<IActionResult> ObterContratosPorCpfCnpj(
+                [FromQuery] string? cpfCnpj,
+                [FromQuery] int page = 1,
+                [FromQuery] int size = 10)
+            {
+                _logger.LogInformation("Obter contrato por CPF ou CNPJ: {CpfCnpj}", cpfCnpj);
+
+                if (!string.IsNullOrEmpty(cpfCnpj) && !Validador.ValidarCpfCnpj(cpfCnpj))
+                    return BadRequest("CPF ou CNPJ inválido.");
+
+                var resultado = await _contratoService.BuscarPorCpfCnpjAsync(cpfCnpj, page, size);
+
+                if (resultado == null || !resultado.Any())
+                    return NotFound();
+
+                var dtos = resultado.Select(_contratoMapper.ToDto);
+                return Ok(dtos);
+            }
 
         }
     }

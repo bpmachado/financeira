@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Exception\" />
-    <Folder Include="model\" />
     <Folder Include="Validation\" />
     <Folder Include="Util\" />
     <Folder Include="Service\" />

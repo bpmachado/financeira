@@ -1,1 +1,39 @@
+# Diretórios comuns
 .vs/
+.vscode/
+bin/
+obj/
+TestResults/
+node_modules/
+
+# Arquivos de usuário e IDE
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Configurações locais
+*.db
+*.sqlite
+*.pdb
+*.cache
+*.config
+*.local.json
+
+# Arquivos de build e publicação
+*.publish.xml
+*.pubxml
+*.PublishProfiles/
+
+# Pacotes NuGet
+*.nupkg
+.nuget/
+
+# Diretórios de dependência
+packages/

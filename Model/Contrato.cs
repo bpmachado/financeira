@@ -6,7 +6,7 @@ using Financeira.Model.Enums;
 
 namespace Financeira.Model
 {
-    [Table("Contrato")]
+    [Table("contrato")]
     public class Contrato
     {
         [Key]

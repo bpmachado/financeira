@@ -5,38 +5,50 @@
     "version": "1.0"
   },
   "paths": {
-    "/WeatherForecast": {
-      "get": {
+    "/api/v1/contratos": {
+      "post": {
         "tags": [
-          "WeatherForecast"
+          "Contrato"
         ],
-        "operationId": "GetWeatherForecast",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContratoDTO"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable Content",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -47,28 +59,101 @@
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
+      "CondicaoVeiculo": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ContratoDTO": {
+        "required": [
+          "clienteCpfCnpj",
+          "condicaoVeiculo",
+          "dataVencimentoPrimeiraParcela",
+          "prazoMeses",
+          "taxaMensal",
+          "tipoVeiculo",
+          "valorTotal"
+        ],
         "type": "object",
         "properties": {
-          "date": {
+          "id": {
             "type": "string",
-            "format": "date"
+            "format": "uuid"
           },
-          "temperatureC": {
+          "clienteCpfCnpj": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "valorTotal": {
+            "maximum": 999999999999,99,
+            "minimum": 0,01,
+            "type": "number",
+            "format": "double"
+          },
+          "taxaMensal": {
+            "maximum": 100,
+            "minimum": 0,01,
+            "type": "number",
+            "format": "double"
+          },
+          "prazoMeses": {
+            "maximum": 360,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
+          "dataVencimentoPrimeiraParcela": {
+            "type": "string",
+            "format": "date"
+          },
+          "tipoVeiculo": {
+            "$ref": "#/components/schemas/TipoVeiculo"
+          },
+          "condicaoVeiculo": {
+            "$ref": "#/components/schemas/CondicaoVeiculo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
             "type": "integer",
             "format": "int32",
-            "readOnly": true
+            "nullable": true
           },
-          "summary": {
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
             "type": "string",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": { }
+      },
+      "TipoVeiculo": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       }
     }
   }

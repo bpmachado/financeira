@@ -1,15 +1,38 @@
+﻿using financeira.Controller.Mappers;
+using financeira.Service;
+using Financeira.Data;
+using Financeira.Repository;
+using Financeira.Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 🔌 Configura o DbContext com PostgreSQL e pooling
+builder.Services.AddDbContextPool<AppDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseNpgsql(connectionString);
+    options.EnableSensitiveDataLogging(); // mostra os valores dos parâmetros
+    options.LogTo(Console.WriteLine, LogLevel.Information); // log no console
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.CommandTimeout(100);
+    });
+});
 
+// 🧩 Registro de serviços e repositórios
+builder.Services.AddScoped<IContratoService, ContratoService>();
+builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
+builder.Services.AddScoped<IContratoMapper, ContratoMapper>();
+
+// 🧩 Swagger e Controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🌐 Pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +40,24 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+// ✅ Verifica conexão com o banco ANTES de iniciar o app
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        var conectado = await db.Database.CanConnectAsync();
+        Console.WriteLine(conectado
+            ? "✅ Conexão com o banco de dados estabelecida."
+            : "⚠️ Não foi possível conectar ao banco de dados.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ Erro ao conectar com o banco: {ex.Message}");
+    }
+}
+
+await app.RunAsync();

@@ -102,6 +102,31 @@ namespace financeira.Controllers
                 return Ok(dtos);
             }
 
+            [HttpDelete("{id}")]
+            [SwaggerOperation(Summary = "Deletar", Description = "Deletar os dados do contrato")]
+            [SwaggerResponse(204, "Contrato deletado com sucesso.")]
+            [SwaggerResponse(404, "Contrato não encontrado.")]
+            [SwaggerResponse(400, "Contrato possui pagamento cadastrado.")]
+            public async Task<IActionResult> DeletarContrato(string id)
+            {
+                _logger.LogInformation("Deletando um contrato por id: {Id}", id);
+
+                if (!Guid.TryParse(id, out var idContrato))
+                    return BadRequest("ID inválido.");
+
+                var contrato = await _contratoService.ObterContratoPorIdAsync(idContrato);
+
+                if (contrato is null)
+                    return NotFound();
+
+                // Regra de negócio: não permitir deletar se houver pagamentos
+                if (contrato.Pagamentos != null && contrato.Pagamentos.Any())
+                    return BadRequest("Contrato possui pagamento cadastrado.");
+
+                await _contratoService.DeletarContratoAsync(contrato);
+                return NoContent();
+            }
+
         }
     }
 }

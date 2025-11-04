@@ -155,6 +155,34 @@
             "description": "Contrato não encontrado."
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Deletar",
+        "description": "Deletar os dados do contrato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Contrato deletado com sucesso."
+          },
+          "404": {
+            "description": "Contrato não encontrado."
+          },
+          "400": {
+            "description": "Contrato possui pagamento cadastrado."
+          }
+        }
       }
     }
   },

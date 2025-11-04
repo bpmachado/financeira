@@ -1,6 +1,7 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
+using financeira.Exceptions;
 using Financeira.Validators;
+using Microsoft.Extensions.Logging;
 
 namespace Financeira.Util
 {
@@ -13,7 +14,7 @@ namespace Financeira.Util
             if (!_validator.IsValidCpfCnpj(cpfCnpj))
             {
                 logger?.LogWarning("CpfCnpj inválido");
-                throw new Exception("CPF ou CNPJ inválido");
+                throw new OperacaoNaoPermitidaException("CPF ou CNPJ inválido");
             }
             return true;
         }

@@ -1,9 +1,8 @@
-﻿
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace Financeira.DTO
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-
     public class FutureOrPresentAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

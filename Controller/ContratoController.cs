@@ -2,17 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace financeira.Controllers
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.Net.Mime;
     using financeira.Controller.Mappers;
+    using financeira.Exceptions;
     using financeira.Service;
     using financeira.Util;
-    using global::Financeira.Data;
     using global::Financeira.DTO;
     using global::Financeira.Util;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
+
     using Swashbuckle.AspNetCore.Annotations;
 
     namespace Financeira.Api.Controllers.v1
@@ -43,14 +40,7 @@ namespace financeira.Controllers
             {
                 _logger.LogInformation("Cadastrando um novo contrato para o cliente com CPF ou CNPJ: {CpfCnpj}", dto.ClienteCpfCnpj);
 
-                try
-                {
-                    Validador.ValidarCpfCnpj(dto.ClienteCpfCnpj);
-                }
-                catch
-                {
-                    return UnprocessableEntity("CPF ou CNPJ inválido.");
-                }
+               Validador.ValidarCpfCnpj(dto.ClienteCpfCnpj);
 
                 var contrato = _contratoMapper.ToEntity(dto);
                 await _contratoService.CriarContratoAsync(contrato);
@@ -68,12 +58,12 @@ namespace financeira.Controllers
                 _logger.LogInformation("Obter um novo contrato por id: {Id}", id);
 
                 if (!Guid.TryParse(id, out var idContrato))
-                    return BadRequest("ID inválido.");
+                    throw new OperacaoNaoPermitidaException("ID inválido.");
 
                 var contrato = await _contratoService.ObterContratoPorIdAsync(idContrato);
 
                 if (contrato is null)
-                    return NotFound();
+                    throw new KeyNotFoundException();
 
                 var dto = _contratoMapper.ToDto(contrato);
                 return Ok(dto);
@@ -90,13 +80,12 @@ namespace financeira.Controllers
             {
                 _logger.LogInformation("Obter contrato por CPF ou CNPJ: {CpfCnpj}", cpfCnpj);
 
-                if (!string.IsNullOrEmpty(cpfCnpj) && !Validador.ValidarCpfCnpj(cpfCnpj))
-                    return BadRequest("CPF ou CNPJ inválido.");
+                Validador.ValidarCpfCnpj(cpfCnpj);
 
                 var resultado = await _contratoService.BuscarPorCpfCnpjAsync(cpfCnpj, page, size);
 
                 if (resultado == null || !resultado.Any())
-                    return NotFound();
+                    throw new KeyNotFoundException();
 
                 var dtos = resultado.Select(_contratoMapper.ToDto);
                 return Ok(dtos);
@@ -112,16 +101,16 @@ namespace financeira.Controllers
                 _logger.LogInformation("Deletando um contrato por id: {Id}", id);
 
                 if (!Guid.TryParse(id, out var idContrato))
-                    return BadRequest("ID inválido.");
+                    throw new OperacaoNaoPermitidaException("ID inválido.");
 
                 var contrato = await _contratoService.ObterContratoPorIdAsync(idContrato);
 
                 if (contrato is null)
-                    return NotFound();
+                    throw new KeyNotFoundException();
 
                 // Regra de negócio: não permitir deletar se houver pagamentos
                 if (contrato.Pagamentos != null && contrato.Pagamentos.Any())
-                    return BadRequest("Contrato possui pagamento cadastrado.");
+                    throw new OperacaoNaoPermitidaException("Não permitir deletar um contrato se tiver um pagamento");
 
                 await _contratoService.DeletarContratoAsync(contrato);
                 return NoContent();

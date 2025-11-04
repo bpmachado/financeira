@@ -233,6 +233,48 @@
             "description": "Pagamento já cadastrado."
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Pagamentos"
+        ],
+        "summary": "Obter pagamento efetuado por contrato",
+        "description": "Retorna os dados do pagamento efetuado e o saldo devedor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contrato encontrado com sucesso.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoContratoDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoContratoDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoContratoDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contrato não encontrado."
+          }
+        }
       }
     }
   },
@@ -324,6 +366,61 @@
         },
         "additionalProperties": false,
         "description": "Pagamento"
+      },
+      "PagamentoResponseDTO": {
+        "type": "object",
+        "properties": {
+          "dataPagamento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valorPago": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusPagamento"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResumoContratoDTO": {
+        "type": "object",
+        "properties": {
+          "contratoId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "valorTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPago": {
+            "type": "number",
+            "format": "double"
+          },
+          "saldoDevedor": {
+            "type": "number",
+            "format": "double"
+          },
+          "pagamentos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PagamentoResponseDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatusPagamento": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "TipoVeiculo": {
         "enum": [

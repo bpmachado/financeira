@@ -56,5 +56,29 @@ namespace financeira.Controller
             var location = UriHelper.GerarHeaderLocation(Request, pagamento.Id);
             return Created(location!, null);
         }
+
+        [HttpGet("{id}/pagamentos")]
+        [SwaggerOperation(Summary = "Obter pagamento efetuado por contrato",Description = "Retorna os dados do pagamento efetuado e o saldo devedor")]
+        [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(ResumoContratoDTO))]
+        [SwaggerResponse(404, "Contrato não encontrado.")]
+        public async Task<IActionResult> ListarPagamentoPorContrato(string id)
+        {
+            _logger.LogInformation("Obter pagamento efetuado pelo contrato {Id}", id);
+
+            if (!Guid.TryParse(id, out var idContrato))
+            {
+                return BadRequest("ID de contrato inválido.");
+            }
+
+            var resumoContratoDto = await _pagamentoService.ObterPagamentoPorContratoAsync(idContrato);
+
+            if (resumoContratoDto is null)
+            {
+                return NotFound("Contrato não encontrado.");
+            }
+
+            return Ok(resumoContratoDto);
+        }
+
     }
 }

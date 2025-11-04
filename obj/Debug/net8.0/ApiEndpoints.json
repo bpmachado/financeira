@@ -186,5 +186,39 @@
     "Tags": [
       "Pagamentos"
     ]
+  },
+  {
+    "ContainingType": "financeira.Controller.PagamentoController",
+    "Method": "ListarPagamentoPorContrato",
+    "RelativePath": "api/v1/contratos/{id}/pagamentos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "financeira.Controller.DTO.ResumoContratoDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Pagamentos"
+    ]
   }
 ]

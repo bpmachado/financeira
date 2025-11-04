@@ -49,3 +49,4 @@ C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.Extensions.P
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Npgsql.dll
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll

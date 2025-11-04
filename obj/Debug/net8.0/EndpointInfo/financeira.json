@@ -1,15 +1,18 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "financeira",
-    "version": "1.0"
+    "title": "Financeira API",
+    "description": "API para gerenciamento de contratos financeiros",
+    "version": "v1"
   },
   "paths": {
     "/api/v1/contratos": {
       "post": {
         "tags": [
-          "Contrato"
+          "Contratos"
         ],
+        "summary": "Salvar",
+        "description": "Cadastrar novo contrato",
         "requestBody": {
           "content": {
             "application/json": {
@@ -31,27 +34,57 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Cadastro com sucesso."
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Erro de validação."
+          },
+          "409": {
+            "description": "Contrato já cadastrado."
+          }
+        }
+      }
+    },
+    "/api/v1/contratos/{id}": {
+      "get": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Obter contrato por id",
+        "description": "Retorna os dados do contrato por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contrato encontrado com sucesso.",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContratoDTO"
+                }
+              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/ContratoDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContratoDTO"
                 }
               }
             }
           },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+          "404": {
+            "description": "Contrato não encontrado."
           }
         }
       }
@@ -118,33 +151,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": { }
       },
       "TipoVeiculo": {
         "enum": [

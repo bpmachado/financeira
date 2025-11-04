@@ -4,6 +4,7 @@ using Financeira.Data;
 using Financeira.Repository;
 using Financeira.Service;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,17 @@ builder.Services.AddScoped<IContratoMapper, ContratoMapper>();
 // 🧩 Swagger e Controllers
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Financeira API",
+        Version = "v1",
+        Description = "API para gerenciamento de contratos financeiros"
+    });
+
+    c.EnableAnnotations(); // 🔥 Isso ativa os atributos como [SwaggerOperation]
+});
 
 var app = builder.Build();
 

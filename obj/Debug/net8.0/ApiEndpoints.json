@@ -20,19 +20,52 @@
         "StatusCode": 201
       },
       {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "application/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 422
       },
       {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "application/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 409
       }
+    ],
+    "Tags": [
+      "Contratos"
+    ]
+  },
+  {
+    "ContainingType": "financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController",
+    "Method": "ObterContratoPorId",
+    "RelativePath": "api/v1/contratos/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Financeira.DTO.ContratoDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Contratos"
     ]
   }
 ]

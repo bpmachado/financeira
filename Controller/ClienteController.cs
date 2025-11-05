@@ -1,5 +1,6 @@
 ﻿using financeira.Service;
 using Financeira.Model.DTO;
+using Financeira.Util;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -29,12 +30,9 @@ namespace financeira.Controller
         {
             _logger.LogInformation("Obter resumo do cliente: {CpfCnpj}", cpfCnpj);
 
-            var resumoClienteDto = await _clienteService.ObterResumoClienteAsync(cpfCnpj);
+            Validador.ValidarCpfCnpj(cpfCnpj);
 
-            if (resumoClienteDto is null)
-            {
-                return NotFound("CPF ou CNPJ não encontrado.");
-            }
+            var resumoClienteDto = await _clienteService.ObterResumoClienteAsync(cpfCnpj);
 
             return Ok(resumoClienteDto);
         }

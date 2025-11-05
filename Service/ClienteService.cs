@@ -33,14 +33,11 @@ namespace financeira.Service
             int parcelasEmDia = 0;
             decimal saldoDevedor = 0m;
 
-            // Correção: o repositório já retorna Task<List<Contrato?>>, então aguardamos diretamente.
             var contratos = await _contratoRepository.GetByClienteCpfCnpjAsync(cpfCnpj);
-
-
 
             if (!contratos.Any())
             {
-                throw new InvalidOperationException($"Nenhum contrato encontrado para o cliente: {cpfCnpj}");
+                throw new KeyNotFoundException();
             }
 
             contratosAtivos = contratos.Count;

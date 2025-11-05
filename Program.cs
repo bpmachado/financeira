@@ -1,4 +1,5 @@
-﻿using financeira.Controller.Common;
+﻿using financeira.Config;
+using financeira.Controller.Common;
 using financeira.Controller.Mappers;
 using financeira.Repository;
 using financeira.Service;
@@ -7,6 +8,7 @@ using Financeira.Repository;
 using Financeira.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.LogTo(Console.WriteLine, LogLevel.Information);
 });
 
+// Configuração do Serilog
+Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext() // permite adicionar propriedades customizadas (ex: CorrelationId)
+    .Enrich.WithThreadId()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] [{CorrelationId}] {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 // 🧩 Registro de serviços e repositórios
 builder.Services.AddScoped<IContratoService, ContratoService>();
 builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
@@ -41,7 +53,7 @@ builder.Services.AddControllers(options =>
 
 });
 
-// 🧩 Swagger e Controllers
+// Swagger e Controllers
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -58,32 +70,17 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// 🌐 Pipeline HTTP
+// Pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<CorrelationIdMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
-// ✅ Verifica conexão com o banco ANTES de iniciar o app
-await using (var scope = app.Services.CreateAsyncScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    try
-    {
-        var conectado = await db.Database.CanConnectAsync();
-        Console.WriteLine(conectado
-            ? "✅ Conexão com o banco de dados estabelecida."
-            : "⚠️ Não foi possível conectar ao banco de dados.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"❌ Erro ao conectar com o banco: {ex.Message}");
-    }
-}
 
 await app.RunAsync();

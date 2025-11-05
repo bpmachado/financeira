@@ -1,4 +1,5 @@
 ﻿using financeira.Service;
+using Financeira.Model;
 using Financeira.Model.DTO;
 using Financeira.Util;
 using Microsoft.AspNetCore.Mvc;

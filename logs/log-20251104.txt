@@ -38,3 +38,99 @@ VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
 [2025-11-04 22:45:33 INF] [ca97563d-3672-4737-a2d5-2632a80cbb1c] Executed action financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController.CriarContrato (financeira) in 127.6769ms
 [2025-11-04 22:45:33 INF] [ca97563d-3672-4737-a2d5-2632a80cbb1c] Executed endpoint 'financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController.CriarContrato (financeira)'
 [2025-11-04 22:45:33 INF] [] Request finished HTTP/1.1 POST https://localhost:7218/api/v1/contratos - 201 0 null 139.4117ms
+[2025-11-04 22:56:32 INF] [] User profile is available. Using 'C:\Users\Bruno Machado\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2025-11-04 22:56:32 INF] [] Now listening on: https://localhost:7218
+[2025-11-04 22:56:32 INF] [] Now listening on: http://localhost:5246
+[2025-11-04 22:56:32 INF] [] Application started. Press Ctrl+C to shut down.
+[2025-11-04 22:56:32 INF] [] Hosting environment: Development
+[2025-11-04 22:56:32 INF] [] Content root path: C:\Users\Bruno Machado\Dotnet\financeira
+[2025-11-04 22:56:33 INF] [] Request starting HTTP/2 GET https://localhost:7218/swagger/index.html - null null
+[2025-11-04 22:56:33 INF] [] Request finished HTTP/2 GET https://localhost:7218/swagger/index.html - 200 null text/html;charset=utf-8 120.5934ms
+[2025-11-04 22:56:33 INF] [] Request starting HTTP/2 GET https://localhost:7218/_framework/aspnetcore-browser-refresh.js - null null
+[2025-11-04 22:56:33 INF] [] Request finished HTTP/2 GET https://localhost:7218/_framework/aspnetcore-browser-refresh.js - 200 13756 application/javascript; charset=utf-8 7.3077ms
+[2025-11-04 22:56:33 INF] [] Request starting HTTP/2 GET https://localhost:7218/_vs/browserLink - null null
+[2025-11-04 22:56:33 INF] [] Request finished HTTP/2 GET https://localhost:7218/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.3611ms
+[2025-11-04 22:56:33 INF] [] Request starting HTTP/2 GET https://localhost:7218/swagger/v1/swagger.json - null null
+[2025-11-04 22:56:33 INF] [] Request finished HTTP/2 GET https://localhost:7218/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 15.7046ms
+[2025-11-04 22:57:02 INF] [] Request starting HTTP/1.1 POST https://localhost:7218/api/v1/contratos - application/json 223
+[2025-11-04 22:57:02 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Executing endpoint 'financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController.CriarContrato (financeira)'
+[2025-11-04 22:57:02 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Route matched with {action = "CriarContrato", controller = "Contrato"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CriarContrato(Financeira.DTO.ContratoDTO) on controller financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController (financeira).
+[2025-11-04 22:57:03 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Cadastrando um novo contrato para o cliente com CPF ou CNPJ: 44652331000181
+[2025-11-04 22:57:03 WRN] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+[2025-11-04 22:57:03 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Executed DbCommand (47ms) [Parameters=[@p0='0c88ad27-e534-4e45-9608-f0749f57f738', @p1='44652331000181' (Nullable = false), @p2='NOVO' (Nullable = false), @p3='2025-11-10T00:00:00.0000000Z' (DbType = DateTime), @p4='10', @p5='1', @p6='AUTOMOVEL' (Nullable = false), @p7='1000.00'], CommandType='"Text"', CommandTimeout='100']
+INSERT INTO contrato (id, cliente_cpf_cnpj, condicao_veiculo, data_vencimento_primeira_parcela, prazo_meses, taxa_mensal, tipo_veiculo, valor_total)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+[2025-11-04 22:57:03 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Executing CreatedResult, writing value of type 'null'.
+[2025-11-04 22:57:03 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Executed action financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController.CriarContrato (financeira) in 859.2233ms
+[2025-11-04 22:57:03 INF] [93ebb90c-1a71-4aad-b450-ad71d61b45e1] Executed endpoint 'financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController.CriarContrato (financeira)'
+[2025-11-04 22:57:03 INF] [] Request finished HTTP/1.1 POST https://localhost:7218/api/v1/contratos - 201 0 null 993.3313ms
+[2025-11-04 22:57:14 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:57:14 INF] [31af66d2-050e-41eb-844f-0ab63ac0801a] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:57:14 INF] [31af66d2-050e-41eb-844f-0ab63ac0801a] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:57:14 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 13.2188ms
+[2025-11-04 22:57:20 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:57:20 INF] [ecbd3db6-d5ef-43e8-82e0-8cfadd8eb441] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:57:20 INF] [ecbd3db6-d5ef-43e8-82e0-8cfadd8eb441] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:57:20 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 5.1037ms
+[2025-11-04 22:57:30 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:57:30 INF] [6d72fe2e-e7e2-4b61-9885-73aa044e97cf] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:57:30 INF] [6d72fe2e-e7e2-4b61-9885-73aa044e97cf] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:57:30 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 5.1468ms
+[2025-11-04 22:57:43 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:57:43 INF] [9b3bfdf3-a14d-468f-92aa-7c3e0ede406f] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:57:43 INF] [9b3bfdf3-a14d-468f-92aa-7c3e0ede406f] AuthenticationScheme: Bearer was challenged.
+[2025-11-04 22:57:43 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 401 0 null 6.169ms
+[2025-11-04 22:58:12 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:58:12 INF] [1421e3db-8b53-4985-a84e-e70a77663b27] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:58:12 INF] [1421e3db-8b53-4985-a84e-e70a77663b27] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:58:12 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 7.9282ms
+[2025-11-04 22:58:25 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:58:25 INF] [744ba88f-2677-4a9d-9090-053fd87a2be5] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:58:25 INF] [744ba88f-2677-4a9d-9090-053fd87a2be5] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:58:25 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 3.6748ms
+[2025-11-04 22:58:26 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:58:26 INF] [8b655580-ae47-4139-9f77-511f2d5f82b4] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 22:58:26 INF] [8b655580-ae47-4139-9f77-511f2d5f82b4] AuthenticationScheme: Bearer was forbidden.
+[2025-11-04 22:58:26 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 403 0 null 3.5969ms
+[2025-11-04 22:59:52 INF] [] User profile is available. Using 'C:\Users\Bruno Machado\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2025-11-04 22:59:52 INF] [] Now listening on: https://localhost:7218
+[2025-11-04 22:59:52 INF] [] Now listening on: http://localhost:5246
+[2025-11-04 22:59:52 INF] [] Application started. Press Ctrl+C to shut down.
+[2025-11-04 22:59:52 INF] [] Hosting environment: Development
+[2025-11-04 22:59:52 INF] [] Content root path: C:\Users\Bruno Machado\Dotnet\financeira
+[2025-11-04 22:59:53 INF] [] Request starting HTTP/2 GET https://localhost:7218/swagger/index.html - null null
+[2025-11-04 22:59:54 INF] [] Request finished HTTP/2 GET https://localhost:7218/swagger/index.html - 200 null text/html;charset=utf-8 118.5154ms
+[2025-11-04 22:59:54 INF] [] Request starting HTTP/2 GET https://localhost:7218/_framework/aspnetcore-browser-refresh.js - null null
+[2025-11-04 22:59:54 INF] [] Request finished HTTP/2 GET https://localhost:7218/_framework/aspnetcore-browser-refresh.js - 200 13756 application/javascript; charset=utf-8 6.2963ms
+[2025-11-04 22:59:54 INF] [] Request starting HTTP/2 GET https://localhost:7218/_vs/browserLink - null null
+[2025-11-04 22:59:54 INF] [] Request finished HTTP/2 GET https://localhost:7218/_vs/browserLink - 200 null text/javascript; charset=UTF-8 29.7448ms
+[2025-11-04 22:59:54 INF] [] Request starting HTTP/2 GET https://localhost:7218/swagger/v1/swagger.json - null null
+[2025-11-04 22:59:54 INF] [] Request finished HTTP/2 GET https://localhost:7218/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16.952ms
+[2025-11-04 22:59:57 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 22:59:57 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Executing endpoint 'financeira.Controller.ClienteController.ObterResumoCliente (financeira)'
+[2025-11-04 22:59:57 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Route matched with {action = "ObterResumoCliente", controller = "Cliente"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObterResumoCliente(System.String) on controller financeira.Controller.ClienteController (financeira).
+[2025-11-04 22:59:57 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Obter resumo do cliente: 44652331000181
+[2025-11-04 22:59:57 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Serviço para obter resumo do cliente: 44652331000181
+[2025-11-04 22:59:58 WRN] [af5d12e3-0a3b-4a04-b866-6430062990ca] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+[2025-11-04 22:59:58 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Executed DbCommand (40ms) [Parameters=[@__cpfCnpj_0='44652331000181'], CommandType='"Text"', CommandTimeout='100']
+SELECT c.id, c.cliente_cpf_cnpj, c.condicao_veiculo, c.data_vencimento_primeira_parcela, c.prazo_meses, c.taxa_mensal, c.tipo_veiculo, c.valor_total, p.id, p.contrato_id, p.data_pagamento, p.status_pagamento, p.valor_pago
+FROM contrato AS c
+LEFT JOIN pagamento AS p ON c.id = p.contrato_id
+WHERE c.cliente_cpf_cnpj = @__cpfCnpj_0
+ORDER BY c.id
+[2025-11-04 22:59:58 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Executing OkObjectResult, writing value of type 'Financeira.Model.DTO.ResumoClienteDTO'.
+[2025-11-04 22:59:58 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Executed action financeira.Controller.ClienteController.ObterResumoCliente (financeira) in 1002.33ms
+[2025-11-04 22:59:58 INF] [af5d12e3-0a3b-4a04-b866-6430062990ca] Executed endpoint 'financeira.Controller.ClienteController.ObterResumoCliente (financeira)'
+[2025-11-04 22:59:58 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 200 null application/json; charset=utf-8 1087.7885ms
+[2025-11-04 23:00:02 INF] [] Request starting HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - null null
+[2025-11-04 23:00:02 INF] [c244bde8-9bd6-4094-9861-b788ee9babdf] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[2025-11-04 23:00:02 INF] [c244bde8-9bd6-4094-9861-b788ee9babdf] AuthenticationScheme: Bearer was challenged.
+[2025-11-04 23:00:02 INF] [] Request finished HTTP/1.1 GET https://localhost:7218/api/v1/clientes/44652331000181/resumo - 401 0 null 10.5303ms

@@ -2,6 +2,7 @@
 using Financeira.Model;
 using Financeira.Model.DTO;
 using Financeira.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -27,6 +28,7 @@ namespace financeira.Controller
         )]
         [SwaggerResponse(200, "CPF ou CNPJ encontrado com sucesso.", typeof(ResumoClienteDTO))]
         [SwaggerResponse(404, "CPF ou CNPJ não encontrado.")]
+        [Authorize]
         public async Task<IActionResult> ObterResumoCliente(string cpfCnpj)
         {
             _logger.LogInformation("Obter resumo do cliente: {CpfCnpj}", cpfCnpj);

@@ -51,3 +51,11 @@ C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Serilog.Settings.Confi
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Serilog.Sinks.Console.dll
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Serilog.Sinks.File.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Bruno Machado\Dotnet\financeira\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

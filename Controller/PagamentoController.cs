@@ -4,6 +4,7 @@ using financeira.Controller.Mappers;
 using financeira.Exceptions;
 using financeira.Service;
 using financeira.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -36,6 +37,7 @@ namespace financeira.Controller
         [SwaggerResponse(201, "Cadastro com sucesso.")]
         [SwaggerResponse(422, "Erro de validação.")]
         [SwaggerResponse(404, "Recurso não encontrado.")]
+        [Authorize]
         public async Task<IActionResult> CriarPagamentoContrato(Guid id, [FromBody] PagamentoDTO pagamentoDto)
         {
             _logger.LogInformation(
@@ -63,6 +65,7 @@ namespace financeira.Controller
         [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(ResumoContratoDTO))]
         [SwaggerResponse(422, "IdContrato inválido.")]
         [SwaggerResponse(404, "Contrato não encontrado.")]
+        [Authorize]
         public async Task<IActionResult> ListarPagamentoPorContrato(string id)
         {
             _logger.LogInformation("Obter pagamento efetuado pelo contrato {Id}", id);

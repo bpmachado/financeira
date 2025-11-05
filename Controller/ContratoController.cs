@@ -8,6 +8,7 @@ namespace financeira.Controllers
     using financeira.Util;
     using global::Financeira.DTO;
     using global::Financeira.Util;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Swashbuckle.AspNetCore.Annotations;
@@ -36,6 +37,7 @@ namespace financeira.Controllers
             [SwaggerResponse(201, "Cadastro com sucesso.")]
             [SwaggerResponse(422, "Erro de validação.")]
             [SwaggerResponse(409, "Contrato já cadastrado.")]
+            [Authorize]
             public async Task<IActionResult> CriarContrato([FromBody] ContratoDTO dto)
             {
                 _logger.LogInformation("Cadastrando um novo contrato para o cliente com CPF ou CNPJ: {CpfCnpj}", dto.ClienteCpfCnpj);
@@ -53,6 +55,7 @@ namespace financeira.Controllers
             [SwaggerOperation(Summary = "Obter contrato por id", Description = "Retorna os dados do contrato por ID")]
             [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(ContratoDTO))]
             [SwaggerResponse(404, "Contrato não encontrado.")]
+            [Authorize]
             public async Task<IActionResult> ObterContratoPorId(string id)
             {
                 _logger.LogInformation("Obter um novo contrato por id: {Id}", id);
@@ -73,6 +76,7 @@ namespace financeira.Controllers
             [SwaggerOperation(Summary = "Obter contrato por CPF ou CNPJ", Description = "Retorna os dados do contrato por CPF ou CNPJ")]
             [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(IEnumerable<ContratoDTO>))]
             [SwaggerResponse(404, "Contrato não encontrado.")]
+            [Authorize]
             public async Task<IActionResult> ObterContratosPorCpfCnpj(
                 [FromQuery] string? cpfCnpj,
                 [FromQuery] int page = 1,
@@ -96,6 +100,7 @@ namespace financeira.Controllers
             [SwaggerResponse(204, "Contrato deletado com sucesso.")]
             [SwaggerResponse(404, "Contrato não encontrado.")]
             [SwaggerResponse(400, "Contrato possui pagamento cadastrado.")]
+            [Authorize]
             public async Task<IActionResult> DeletarContrato(string id)
             {
                 _logger.LogInformation("Deletando um contrato por id: {Id}", id);

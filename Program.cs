@@ -1,4 +1,5 @@
-﻿using financeira.Config;
+﻿using System.Security.Claims;
+using financeira.Config;
 using financeira.Controller.Common;
 using financeira.Controller.Mappers;
 using financeira.Repository;
@@ -6,6 +7,7 @@ using financeira.Service;
 using Financeira.Data;
 using Financeira.Repository;
 using Financeira.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -36,6 +38,51 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+// Token fixo:
+var fixedToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvLWZpeG8iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjQwMDAwMDAwMDB9.fJ_QemGTuq69W2yocgC7qrSZwL6EXmoq9zGN2NWU3S0";
+
+// Configuração de autenticação JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+ {
+     options.Events = new JwtBearerEvents
+     {
+         OnMessageReceived = context =>
+         {
+             // Recupera o header Authorization: Bearer + Token
+             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+             if (token == fixedToken)
+             {
+                 // Cria uma identidade mínima válida
+                 var claims = new[]
+                 {
+                    new Claim(ClaimTypes.Name, "usuario-fixo"),
+                    new Claim(ClaimTypes.Role, "Admin")
+                 };
+                 var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+                 context.Principal = new ClaimsPrincipal(identity);
+                 context.Success();
+             }
+
+             return Task.CompletedTask;
+         },
+         OnAuthenticationFailed = context =>
+         {
+             context.Response.StatusCode = 401;
+             return Task.CompletedTask;
+         }
+     };
+ });
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+
 
 // 🧩 Registro de serviços e repositórios
 builder.Services.AddScoped<IContratoService, ContratoService>();
@@ -78,8 +125,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<CorrelationIdMiddleware>();
-
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

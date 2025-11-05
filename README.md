@@ -96,6 +96,13 @@ GET http://localhost:8080/api/v1/contratos/{id}
 ```
 Se a autenticação estiver correta você receberá o resultado esperado, caso contrário erro 401 ou 403.
 
+## 📚 Documentação da API
+
+A documentação interativa da API está disponível via Swagger.  
+Para acessar, rode a aplicação e abra o link abaixo no seu navegador:
+
+[Swagger UI](https://localhost:7218/swagger/index.html)
+
 ## 📚 Endpoints principais  
 ### Contratos  
 - `GET /api/v1/contratos` → lista todos os contratos (ou conforme filtros).  

@@ -6,6 +6,50 @@
     "version": "v1"
   },
   "paths": {
+    "/api/v1/clientes/{cpfCnpj}/resumo": {
+      "get": {
+        "tags": [
+          "Cliente"
+        ],
+        "summary": "Obter resumo do cliente",
+        "description": "Retorna os dados do resumo de cliente por Cpf ou CNPJ",
+        "parameters": [
+          {
+            "name": "cpfCnpj",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CPF ou CNPJ encontrado com sucesso.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoClienteDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoClienteDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumoClienteDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "CPF ou CNPJ não encontrado."
+          }
+        }
+      }
+    },
     "/api/v1/contratos": {
       "post": {
         "tags": [
@@ -383,6 +427,44 @@
           },
           "status": {
             "$ref": "#/components/schemas/StatusPagamento"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResumoClienteDTO": {
+        "type": "object",
+        "properties": {
+          "clienteCpfCnpj": {
+            "type": "string",
+            "nullable": true
+          },
+          "contratosAtivos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalParcelas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcelasPagas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcelasAtrasadas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcelasAVencer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "percentualPagasEmDia": {
+            "type": "number",
+            "format": "double"
+          },
+          "saldoDevedor": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

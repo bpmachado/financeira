@@ -1,5 +1,36 @@
 [
   {
+    "ContainingType": "financeira.Controller.ClienteController",
+    "Method": "ObterResumoCliente",
+    "RelativePath": "api/v1/clientes/{cpfCnpj}/resumo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cpfCnpj",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Financeira.Model.DTO.ResumoClienteDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
     "ContainingType": "financeira.Controllers.Financeira.Api.Controllers.v1.ContratoController",
     "Method": "CriarContrato",
     "RelativePath": "api/v1/contratos",

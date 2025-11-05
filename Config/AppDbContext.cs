@@ -28,6 +28,11 @@ namespace Financeira.Data
                     v => v.ToString().ToUpper(),
                     v => (CondicaoVeiculo)Enum.Parse(typeof(CondicaoVeiculo), v, true));
 
+            modelBuilder.Entity<Contrato>()
+                .HasMany(c => c.Pagamentos)
+                .WithOne(p => p.Contrato)
+                .HasForeignKey(p => p.ContratoId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Pagamento>()
                 .Property(p => p.StatusPagamento)
@@ -39,6 +44,7 @@ namespace Financeira.Data
                 .WithMany(c => c.Pagamentos)
                 .HasForeignKey(p => p.ContratoId)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

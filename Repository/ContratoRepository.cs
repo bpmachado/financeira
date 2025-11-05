@@ -35,6 +35,7 @@ namespace Financeira.Repository
         {
             return await _context.Contratos
                 .Where(c => c.ClienteCpfCnpj == cpfCnpj)
+                .Include(c => c.Pagamentos)
                 .ToListAsync();
         }
 

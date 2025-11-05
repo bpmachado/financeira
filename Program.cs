@@ -32,6 +32,7 @@ builder.Services.AddScoped<IContratoMapper, ContratoMapper>();
 builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 builder.Services.AddScoped<IPagamentoMapper, PagamentoMapper>();
 builder.Services.AddScoped<IPagamentoRepository, PagamentoRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 builder.Services.AddControllers(options =>
 {

@@ -5,6 +5,7 @@ bin/
 obj/
 TestResults/
 node_modules/
+logs/
 
 # Arquivos de usuário e IDE
 *.user

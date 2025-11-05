@@ -1,6 +1,7 @@
 ﻿using System;
 using financeira.Controller.DTO;
 using financeira.Controller.Mappers;
+using financeira.Exceptions;
 using financeira.Service;
 using financeira.Util;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace financeira.Controller
         [SwaggerOperation(Summary = "Salvar", Description = "Cadastrar novo pagamento para um contrato")]
         [SwaggerResponse(201, "Cadastro com sucesso.")]
         [SwaggerResponse(422, "Erro de validação.")]
-        [SwaggerResponse(409, "Pagamento já cadastrado.")]
+        [SwaggerResponse(404, "Recurso não encontrado.")]
         public async Task<IActionResult> CriarPagamentoContrato(Guid id, [FromBody] PagamentoDTO pagamentoDto)
         {
             _logger.LogInformation(
@@ -45,7 +46,7 @@ namespace financeira.Controller
             var contrato = await _contratoService.ObterContratoPorIdAsync(id);
             if (contrato is null)
             {
-                return NotFound("Contrato não encontrado");
+                throw new KeyNotFoundException();
             }
 
             var pagamento = _pagamentoMapper.ToEntity(pagamentoDto);
@@ -58,8 +59,9 @@ namespace financeira.Controller
         }
 
         [HttpGet("{id}/pagamentos")]
-        [SwaggerOperation(Summary = "Obter pagamento efetuado por contrato",Description = "Retorna os dados do pagamento efetuado e o saldo devedor")]
+        [SwaggerOperation(Summary = "Obter pagamento",Description = "Retorna os dados do pagamento efetuado e o saldo devedor")]
         [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(ResumoContratoDTO))]
+        [SwaggerResponse(422, "IdContrato inválido.")]
         [SwaggerResponse(404, "Contrato não encontrado.")]
         public async Task<IActionResult> ListarPagamentoPorContrato(string id)
         {
@@ -67,14 +69,14 @@ namespace financeira.Controller
 
             if (!Guid.TryParse(id, out var idContrato))
             {
-                return BadRequest("ID de contrato inválido.");
+                throw new CampoInvalidoException("idContrato", "idContrato inválido.");
             }
 
             var resumoContratoDto = await _pagamentoService.ObterPagamentoPorContratoAsync(idContrato);
 
             if (resumoContratoDto is null)
             {
-                return NotFound("Contrato não encontrado.");
+                throw new KeyNotFoundException();
             }
 
             return Ok(resumoContratoDto);

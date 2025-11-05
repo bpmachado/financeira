@@ -32,7 +32,7 @@ namespace financeira.Service
         {
             var contrato = await _contratoRepository.GetByIdAsync(idContrato);
             if (contrato is null)
-                throw new OperacaoNaoPermitidaException("Contrato não encontrado");
+                throw new KeyNotFoundException("Contrato não encontrado");
 
             var pagamentos = await _pagamentoRepository.FindByContratoIdAsync(idContrato);
 

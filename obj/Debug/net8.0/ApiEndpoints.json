@@ -180,7 +180,7 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
-        "StatusCode": 409
+        "StatusCode": 404
       }
     ],
     "Tags": [
@@ -210,6 +210,11 @@
           "text/json"
         ],
         "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 422
       },
       {
         "Type": "System.Void",

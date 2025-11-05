@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
 // Adicione a diretiva correta para o tipo Exception do .NET
-using System; // <-- Adiciona o tipo Exception
+using System;
+using Microsoft.AspNetCore.Http.HttpResults; // <-- Adiciona o tipo Exception
 
 namespace financeira.Controller.Common
 {

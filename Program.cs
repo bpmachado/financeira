@@ -36,6 +36,8 @@ builder.Services.AddScoped<IPagamentoRepository, PagamentoRepository>();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<GlobalExceptionFilter>();
+
+
 });
 
 // 🧩 Swagger e Controllers

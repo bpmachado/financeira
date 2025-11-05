@@ -60,6 +60,38 @@ O Financeira API foi desenvolvido para gerenciamento de contratos e pagamentos:
 - .NET 8 SDK (somente para desenvolvimento; não necessário em produção se usar imagem docker).  
 - PostgreSQL (pode usar container via compose ou banco local).
 
+## Rodando a Aplicação Localmente (localhost:8080)
+
+### 1. Criar a network Docker
+```bash
+docker network create financeira-network
+```
+
+### 2. Subir o container do PostgreSQL
+```bash
+docker run --name financeiradb -p 5432:5432 \
+-e POSTGRES_USER=postgres \
+-e POSTGRES_PASSWORD=postgres \
+-e POSTGRES_DB=financeiradb \
+--network financeira-network -d postgres:16.3
+```
+
+### 3. Subir o container do PgAdmin
+```bash
+docker run --name pgadmin4 -p 15432:80 \
+-e PGADMIN_DEFAULT_EMAIL=admin@admin.com \
+-e PGADMIN_DEFAULT_PASSWORD=admin \
+--network financeira-network -d dpage/pgadmin4
+```
+
+> PgAdmin disponível em [http://localhost:15432](http://localhost:15432)
+
+### 4. Configuração da aplicação
+Substituir o conteúdo do arquivo `appsettings.json` pelo `appsettings-local.json` para usar a configuração correta da porta e do banco de dados.
+
+### 5. Executar a aplicação
+No Visual Studio 2022 ou via CLI:
+
 ### Usando Docker Compose  
 ```bash
 git clone https://github.com/bpmachado/financeira.git

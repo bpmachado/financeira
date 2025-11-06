@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace financeira.Controllers
 {
+    using financeira.Controller.DTO;
     using financeira.Controller.Mappers;
     using financeira.Exceptions;
     using financeira.Service;
@@ -73,8 +74,8 @@ namespace financeira.Controllers
             }
 
             [HttpGet]
-            [SwaggerOperation(Summary = "Obter contrato por CPF ou CNPJ", Description = "Retorna os dados do contrato por CPF ou CNPJ")]
-            [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(IEnumerable<ContratoDTO>))]
+            [SwaggerOperation(Summary = "Obter contrato por CPF ou CNPJ com paginação", Description = "Retorna os dados do contrato por CPF ou CNPJ")]
+            [SwaggerResponse(200, "Contrato encontrado com sucesso.", typeof(PagedResult<ContratoDTO>))]
             [SwaggerResponse(404, "Contrato não encontrado.")]
             [Authorize]
             public async Task<IActionResult> ObterContratosPorCpfCnpj(
@@ -88,11 +89,21 @@ namespace financeira.Controllers
 
                 var resultado = await _contratoService.BuscarPorCpfCnpjAsync(cpfCnpj, page, size);
 
-                if (resultado == null || !resultado.Any())
+                if (resultado == null || !resultado.Items.Any())
                     throw new KeyNotFoundException();
 
-                var dtos = resultado.Select(_contratoMapper.ToDto);
-                return Ok(dtos);
+                var dtoResult = new PagedResult<ContratoDTO>
+                {
+                    Items = resultado.Items?.Select(_contratoMapper.ToDto)
+                        .Where(dto => dto != null)
+                        .Cast<ContratoDTO>()
+                        .ToList() ?? new List<ContratoDTO>(),
+                    Page = resultado.Page,
+                    PageSize = resultado.PageSize,
+                    TotalItems = resultado.TotalItems
+                };
+
+                return Ok(dtoResult);
             }
 
             [HttpDelete("{id}")]

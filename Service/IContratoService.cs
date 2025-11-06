@@ -1,4 +1,5 @@
-﻿using Financeira.Model;
+﻿using financeira.Controller.DTO;
+using Financeira.Model;
 
 namespace financeira.Service
 {
@@ -7,6 +8,6 @@ namespace financeira.Service
         Task CriarContratoAsync(Contrato contrato);
         Task<Contrato?> ObterContratoPorIdAsync(Guid id);
         Task DeletarContratoAsync(Contrato contrato);
-        Task<List<Contrato>> BuscarPorCpfCnpjAsync(string cpfCnpj, int pageNumber, int pageSize);
+        Task<PagedResult<Contrato>> BuscarPorCpfCnpjAsync(string cpfCnpj, int pageNumber, int pageSize);
     }
 }

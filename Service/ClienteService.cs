@@ -1,7 +1,9 @@
-﻿using financeira.Repository;
+﻿
+using financeira.Repository;
 using Financeira.Model;
 using Financeira.Model.DTO;
 using Financeira.Repository;
+using Microsoft.Extensions.Logging;
 
 namespace financeira.Service
 {

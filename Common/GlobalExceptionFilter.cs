@@ -1,14 +1,9 @@
-﻿using System.Net;
+﻿
 using financeira.Controller.DTO;
 using financeira.Exceptions;
-using Financeira.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-
-// Adicione a diretiva correta para o tipo Exception do .NET
-using System;
-using Microsoft.AspNetCore.Http.HttpResults; // <-- Adiciona o tipo Exception
 
 namespace financeira.Controller.Common
 {

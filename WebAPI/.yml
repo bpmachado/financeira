@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  financeira-app:
+    build: .
+    container_name: financeira-app
+    restart: always
+    environment:
+      ASPNETCORE_URLS: "http://+:8080"
+      DATASOURCE_URL: "Host=host.docker.internal;Port=5432;Database=financeiradb;Username=postgres;Password=postgres"
+    ports:
+      - "8080:8080"
+    networks:
+      - financeira-network
+
+networks:
+  financeira-network:
+    driver: bridge

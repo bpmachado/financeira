@@ -1,5 +1,4 @@
-﻿using System;
-using financeira.Exceptions;
+﻿using financeira.Exceptions;
 using Financeira.Validators;
 using Microsoft.Extensions.Logging;
 

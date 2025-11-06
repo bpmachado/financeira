@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Financeira.DTO;
-using Financeira.Util;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace financeira.Controller.DTO

@@ -41,7 +41,7 @@ services:
     container_name: financeira-app
     restart: always
     environment:
-      DATASOURCE_URL: "Host=postgres;Port=5432;Database=financeiradb;Username=postgres;Password=postgres"
+      DATASOURCE_URL: "Host=postgres;Port=5436;Database=financeiradb;Username=postgres;Password=postgres"
       ASPNETCORE_URLS: "http://+:8080"
     ports:
       - "8080:8080"

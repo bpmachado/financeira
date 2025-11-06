@@ -39,6 +39,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+
 // Token fixo:
 var fixedToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvLWZpeG8iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjQwMDAwMDAwMDB9.fJ_QemGTuq69W2yocgC7qrSZwL6EXmoq9zGN2NWU3S0";
 
@@ -49,36 +50,36 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
- {
-     options.Events = new JwtBearerEvents
-     {
-         OnMessageReceived = context =>
-         {
-             // Recupera o header Authorization: Bearer + Token
-             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+{
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            // Recupera o header Authorization: Bearer + Token
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-             if (token == fixedToken)
-             {
-                 // Cria uma identidade mínima válida
-                 var claims = new[]
-                 {
+            if (token == fixedToken)
+            {
+                // Cria uma identidade mínima válida
+                var claims = new[]
+                {
                     new Claim(ClaimTypes.Name, "usuario-fixo"),
                     new Claim(ClaimTypes.Role, "Admin")
                  };
-                 var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-                 context.Principal = new ClaimsPrincipal(identity);
-                 context.Success();
-             }
+                var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+                context.Principal = new ClaimsPrincipal(identity);
+                context.Success();
+            }
 
-             return Task.CompletedTask;
-         },
-         OnAuthenticationFailed = context =>
-         {
-             context.Response.StatusCode = 401;
-             return Task.CompletedTask;
-         }
-     };
- });
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            context.Response.StatusCode = 401;
+            return Task.CompletedTask;
+        }
+    };
+});
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
@@ -96,7 +97,6 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<GlobalExceptionFilter>();
-
 
 });
 

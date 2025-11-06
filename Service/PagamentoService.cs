@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using financeira.Controller.DTO;
-using financeira.Exceptions;
 using financeira.Repository;
 using Financeira.Model;
 using Financeira.Model.Enums;

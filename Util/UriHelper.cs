@@ -1,4 +1,6 @@
-﻿namespace financeira.Util
+﻿using Microsoft.AspNetCore.Http;
+
+namespace financeira.Util
 {
     public static class UriHelper
     {

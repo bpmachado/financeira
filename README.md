@@ -29,29 +29,38 @@ O Financeira API foi desenvolvido para gerenciamento de contratos e pagamentos:
 │   ├── ContratoController.cs
 │   ├── PagamentoController.cs
 │   └── ClienteController.cs
-├── Model/
-│   ├── Contrato.cs
-│   ├── Pagamento.cs
-│   ├── ResumoContratoDTO.cs
+├── DTO/
+│   ├── ContratoDTO.cs
+│   ├── PagamentoDTO.cs
 │   └── ResumoClienteDTO.cs
 ├── Data/
 │   └── AppDbContext.cs
+├── Mappers/
+│   ├── ContratoMapper.cs
+│   ├── PagamentoMapper.cs
+│   └── ClienteMapper.cs
+├── Model/
+│   ├── Contrato.cs
+│   ├── Pagamento.cs
+│   ├── Enums/
+│   │   └── StatusPagamento.cs
 ├── Repository/
 │   ├── IContratoRepository.cs
 │   ├── IPagamentoRepository.cs
-│   └── ...implementações
+│   ├── ContratoRepository.cs
+│   └── PagamentoRepository.cs
 ├── Service/
 │   ├── IContratoService.cs
 │   ├── IPagamentoService.cs
 │   ├── IClienteService.cs
-│   └── implementações
-├── Mapper/
-│   ├── ContratoMapper.cs
-│   ├── PagamentoMapper.cs
-│   └── ClienteMapper.cs
-├── Program.cs
-├── Dockerfile
-└── appsettings.json
+│   ├── ContratoService.cs
+│   ├── PagamentoService.cs
+│   └── ClienteService.cs
+├── Util/
+│   └── UriHelper.cs
+├── Startup / Program.cs
+├── appsettings.json
+└── Dockerfile & docker‑compose.yml
 ```
 
 ## 🚀 Como rodar localmente  

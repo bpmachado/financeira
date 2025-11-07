@@ -201,3 +201,5 @@ Para acessar, rode a aplicação e abra o link abaixo no seu navegador:
 - Bruno Machado — desenvolvedor principal deste repositório.  
 - GitHub: [https://github.com/bpmachado](https://github.com/bpmachado)  
 - LinkedIn / E‑mail: [LinkedIn](https://www.linkedin.com/in/bruno-pereira-machado-46b34b18b/) / bpmachado@gmail.com
+- Foi Desenvolvido o projeto também na linguagem Java: https://github.com/bpmachado/financeira-java
+

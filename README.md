@@ -137,6 +137,27 @@ GET http://localhost:8080/api/v1/contratos/{id}
 ```
 Se a autenticação estiver correta você receberá o resultado esperado, caso contrário erro 401 ou 403.
 
+# 📝 Postman Collection
+
+Para testar a API Financeira rapidamente, você pode importar a **Postman Collection** disponibilizada neste repositório.
+
+## Download da Collection
+
+Clique no link abaixo para baixar a collection diretamente:
+
+[Download da Collection](https://raw.githubusercontent.com/bpmachado/financeira/main/REST%20API%20-%20Financeira.postman_collection.json)
+
+## Como Importar no Postman
+
+1. Abra o Postman.
+2. Clique em **File → Import** ou no botão **Import** na tela inicial.
+3. Selecione a aba **Link** e cole o link de download:
+   ```
+   https://raw.githubusercontent.com/bpmachado/financeira/main/REST%20API%20-%20Financeira.postman_collection.json
+   ```
+4. Clique em **Continue** e depois em **Import**.
+5. A collection será adicionada ao seu workspace, permitindo testar todos os endpoints da API.
+
 ## 📚 Documentação da API
 
 A documentação interativa da API está disponível via Swagger.  
